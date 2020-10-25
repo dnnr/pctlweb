@@ -2,8 +2,6 @@
 use rocket_contrib::json::Json;
 use serde::Deserialize;
 use std::process::Command;
-use std::process::Child;
-use std::io::Error;
 use std::result::Result;
 
 #[macro_use]
