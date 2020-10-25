@@ -15,23 +15,30 @@ struct SocketState {
 #[derive(Deserialize)]
 enum SocketState2 {
     On,
-    Off
+    Off,
 }
 
-fn pctl(socket: &String, command: &String) -> Result<String, rocket::response::status::NotFound<String>> {
-    let result = Command::new("pctl")
-        .args(&[socket, command])
-        .output();
+fn pctl(
+    socket: &String,
+    command: &String,
+) -> Result<String, rocket::response::status::NotFound<String>> {
+    let result = Command::new("pctl").args(&[socket, command]).output();
 
     match result {
         Ok(output) => {
             if output.status.success() {
                 Ok(format!("Success with status {}", output.status))
             } else {
-                Err(rocket::response::status::NotFound(format!("Executed but failed with status: {}", output.status)))
+                Err(rocket::response::status::NotFound(format!(
+                    "Executed but failed with status: {}",
+                    output.status
+                )))
             }
         }
-        Err(error) => { Err(rocket::response::status::NotFound(format!("pctl command failed: {}", error))) }
+        Err(error) => Err(rocket::response::status::NotFound(format!(
+            "pctl command failed: {}",
+            error
+        ))),
     }
 }
 
@@ -62,6 +69,9 @@ fn socket_toggle(socket: String) -> Result<String, rocket::response::status::Not
 
 fn main() {
     rocket::ignite()
-        .mount("/", routes![index, set_socket, socket_on, socket_off, socket_toggle])
+        .mount(
+            "/",
+            routes![index, set_socket, socket_on, socket_off, socket_toggle],
+        )
         .launch();
 }
