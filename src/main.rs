@@ -1,16 +1,10 @@
 #![feature(proc_macro_hygiene, decl_macro)]
-use rocket_contrib::json::Json;
-use serde::Deserialize;
 use std::process::Command;
 use std::result::Result;
 
 #[macro_use]
 extern crate rocket;
 
-#[derive(Deserialize)]
-struct SocketState {
-    is_on: bool,
-}
 
 fn pctl(
     socket: &String,
@@ -41,11 +35,6 @@ fn index() -> &'static str {
     "Hello, world!\n"
 }
 
-#[post("/set/<socket>", format = "json", data = "<state>")]
-fn set_socket(socket: String, state: Json<SocketState>) -> String {
-    format!("Hello, set socket {} with state {}!\n", socket, state.is_on)
-}
-
 #[post("/socket/<socket>/on")]
 fn socket_on(socket: String) -> Result<String, rocket::response::status::NotFound<String>> {
     pctl(&socket, &"on".to_string())
@@ -65,7 +54,7 @@ fn main() {
     rocket::ignite()
         .mount(
             "/",
-            routes![index, set_socket, socket_on, socket_off, socket_toggle],
+            routes![index, socket_on, socket_off, socket_toggle],
         )
         .launch();
 }
