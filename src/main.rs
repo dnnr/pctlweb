@@ -51,10 +51,6 @@ fn socket_toggle(socket: String) -> Result<String, rocket::response::status::Not
 }
 
 fn main() {
-    rocket::ignite()
-        .mount(
-            "/",
-            routes![index, socket_on, socket_off, socket_toggle],
-        )
-        .launch();
+    let routes = routes![index, socket_on, socket_off, socket_toggle];
+    rocket::ignite().mount("/", routes).launch();
 }
