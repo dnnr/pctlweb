@@ -12,12 +12,6 @@ struct SocketState {
     is_on: bool,
 }
 
-#[derive(Deserialize)]
-enum SocketState2 {
-    On,
-    Off,
-}
-
 fn pctl(
     socket: &String,
     command: &String,
