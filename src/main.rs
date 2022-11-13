@@ -106,7 +106,7 @@ fn execute_hs100(
         Command::Off => "AAAAKtDygfiL/5r31e+UtsWg1Iv5nPCR6LfEsNGlwOLYo4HyhueT9tTu3qPeow==",
         Command::Toggle => {
             return Err(HttpStatus::NotFound(
-                "Toggle not implemented for HS100".to_string(),
+                "Toggle not implemented for HS100\n".to_string(),
             ))
         }
     };
