@@ -69,13 +69,13 @@ fn command_result_to_http(
                 Ok(format!("Success with status {}\n", output.status))
             } else {
                 Err(HttpStatus::NotFound(format!(
-                    "sismpctl failed with exit code {}\n",
+                    "sispmctl failed with exit code {}\n",
                     output.status.code().unwrap_or(0)
                 )))
             }
         }
         Err(error) => Err(HttpStatus::NotFound(format!(
-            "Could not execute sismpctl: {}\n",
+            "Could not execute sispmctl: {}\n",
             error
         ))),
     }
