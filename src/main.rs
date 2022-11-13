@@ -15,7 +15,7 @@ static SOCKETS: phf::Map<&'static str, SocketType> = phf_map! {
     "redlight" => SocketType::Sispmctl{num: 3},
     "tv" => SocketType::Sispmctl{num: 4},
     "wifi1" => SocketType::HS100{conn_string: "192.168.178.47:9999"},
-    "wifi2" => SocketType::HS100{conn_string: "0.0.0.0"},
+    "wifi2" => SocketType::HS100{conn_string: "192.168.178.48:9999"},
 };
 
 fn parse_socket_str(socket: &str) -> Option<SocketType> {
