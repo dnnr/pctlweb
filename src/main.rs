@@ -1,4 +1,3 @@
-#![feature(proc_macro_hygiene, decl_macro)]
 use phf::phf_map;
 use rocket::response::status as HttpStatus;
 use std::io::prelude::*;
@@ -143,7 +142,8 @@ fn socket_toggle(socket: String) -> Result<String, HttpStatus::NotFound<String>>
     execute_by_str(&socket, &Command::Toggle)
 }
 
-fn main() {
+#[launch]
+fn rocket() -> _ {
     let routes = routes![index, socket_on, socket_off, socket_toggle];
-    rocket::ignite().mount("/", routes).launch();
+    rocket::build().mount("/", routes)
 }
